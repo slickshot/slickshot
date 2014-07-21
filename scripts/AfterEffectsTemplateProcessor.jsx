@@ -1350,7 +1350,7 @@ var RenderSettingsTemp = "Best Settings";
 var OutputModuleTemp = "H.264";
 var OutputPath = "C:\\Users\\animator\\Desktop\\";
 
-var numGroups = 3; // Number of the types of images groups we have. For example, templates that use 1 image, 2 images, or 3 images. THIS IS NOT NUMBER OF TOTAL TEMPLATES!!!!!!!!!
+var numGroups = GLOBALS.numGroups = 3; // Number of the types of images groups we have. For example, templates that use 1 image, 2 images, or 3 images. THIS IS NOT NUMBER OF TOTAL TEMPLATES!!!!!!!!!
 
 var dropboxFolder = GLOBALS.dropboxFolder = "C:\\Users\\animator\\Dropbox\\Video Automation Platform\\jobs\\";
 
@@ -1379,6 +1379,7 @@ function processJob(job) {
 	        itemsObject["upload" + i] = {imageName: itemsArray[i][0]};
 		}
 
+		$.writeln("itemsArray ", itemsArray);
 		randomCompGeneration(itemsArray);
 		
 
@@ -1452,14 +1453,14 @@ function randomCompGeneration(itemsArray){
 	var canAddNumber = false;
 
 	//Loop through the total number of images with an offset. Create a random number/ order of comps
-	for (i = 0; i < numImages - numGroups; i++){
-		if (total < numImages - numGroups){
-			groupOrder.push(Math.floor(Math.random() * numGroups + 1))
+	for (i = 0; i < numImages - GLOBALS.numGroups; i++){
+		if (total < numImages - GLOBALS.numGroups){
+			groupOrder.push(Math.floor(Math.random() * GLOBALS.numGroups + 1))
 			total += groupOrder[i];
 		}
 
 		//If the total is between the number of images and its offset, find the remainder between the two
-		if (total >= numImages - numGroups && total <= numImages ){
+		if (total >= numImages - GLOBALS.numGroups && total <= numImages ){
 			var remainder = numImages % total;
 			var canAddNumber = true;
 		}
