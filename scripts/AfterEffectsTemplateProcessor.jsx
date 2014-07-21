@@ -1348,7 +1348,7 @@ GLOBALS = {};
 
 var RenderSettingsTemp = "Best Settings";
 var OutputModuleTemp = "H.264";
-var OutputPath = "C:\\Users\\animator\\Desktop\\";
+//var OutputPath = "C:\\Users\\animator\\Desktop\\";
 
 var numGroups = GLOBALS.numGroups = 3; // Number of the types of images groups we have. For example, templates that use 1 image, 2 images, or 3 images. THIS IS NOT NUMBER OF TOTAL TEMPLATES!!!!!!!!!
 
@@ -1619,7 +1619,7 @@ function renderFinal(){
         myRQItem.outputModules[1].applyTemplate(OutputModuleTemp);
         
         var projName = app.project.file.name;
-        var myFile = new File(OutputPath + projName.substring(0, projName.length - 4) + "_" + mastComp.name + "_Job" + GLOBALS.job);
+        var myFile = new File(GLOBALS.jobFolder + GLOBALS.job);
         
         //Set output path
         myRQItem.outputModules[1].file = myFile;
