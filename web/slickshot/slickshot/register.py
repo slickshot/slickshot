@@ -16,5 +16,5 @@ def job(job, selections):
             writer.writerow([selection])
 
     # Update index
-    with open(os.path.join(settings.PLATFORM_HOME, "jobs","index.txt"), "wb") as fp:
-        fp.writelines([job])
+    with open(os.path.join(settings.PLATFORM_HOME, "jobs","index.txt"), "ab") as fp:
+        fp.writelines([job + "\n"])
