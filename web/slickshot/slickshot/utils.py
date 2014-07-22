@@ -20,7 +20,7 @@ def check_status(job):
 
     try:
         return client.metadata(
-            '/Video Automation Platform/jobs/{job}/{job}.mov'.format(job=job))
+            '/Video Automation Platform/jobs/{job}/{job}.png'.format(job=job))
 
     except ErrorResponse:
         return False

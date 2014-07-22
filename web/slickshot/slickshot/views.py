@@ -73,7 +73,8 @@ def share(request):
     Shares the output of a job.
     """
     try:
-        job = json.load(request)
+        data = json.load(request)
+        job = data["job"]
 
     except:
         return HttpResponseBadRequest("Bad request")
