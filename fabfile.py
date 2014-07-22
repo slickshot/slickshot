@@ -6,6 +6,13 @@ from fabric.api import local
 BASE_DIR = os.path.sep.join((os.path.dirname(__file__), ''))
 
 
+def shell():
+    """
+    Runs the Django development server.
+    """
+    local(os.path.join(BASE_DIR, "web/slickshot/manage.py") + " shell")
+
+
 def runserver():
     """
     Runs the Django development server.
