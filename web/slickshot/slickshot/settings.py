@@ -88,3 +88,5 @@ STATIC_URL = '/static/'
 
 # CORS_ORIGIN_WHITELIST = ['slickshot.github.io']
 CORS_ORIGIN_ALLOW_ALL = True
+
+DROPBOX_TOKEN = os.environ["DROPBOX_TOKEN"]
