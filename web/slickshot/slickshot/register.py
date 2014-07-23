@@ -44,6 +44,9 @@ def job(job, selections):
     for job in jobs:
         fp.write("{}\n".format(job))
 
+    # TODO
+    # Beware race conditions here!
+
     # Upload index to Dropbox
     dropbox.put_file(
         os.path.join(
