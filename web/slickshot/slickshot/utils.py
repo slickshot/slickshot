@@ -1,5 +1,9 @@
+
 import dropbox.client
+
 from dropbox.rest import ErrorResponse
+
+import redis
 
 from django.conf import settings
 
@@ -10,6 +14,12 @@ def get_dropbox_client():
     """
     return dropbox.client.DropboxClient(settings.DROPBOX_TOKEN)
 
+
+def get_redis_client():
+    """
+    Returns a Redis client, configured from settings.REDIS_URI.
+    """
+    return redis.from_url(settings.REDIS_URI)
 
 
 def check_status(job):

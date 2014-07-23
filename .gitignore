@@ -1,2 +1,3 @@
 *.pyc
 platform
+env.sh

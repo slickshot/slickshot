@@ -12,11 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-PLATFORM_HOME = os.path.realpath(
-    os.path.join(BASE_DIR, "..", "..", "platform")
-)
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -24,9 +19,9 @@ PLATFORM_HOME = os.path.realpath(
 SECRET_KEY = 'u()$ip&04tu_@!cbu119uorq(g-x8361%k=w#$&0f2#$+m!_oh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -86,7 +81,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+# Path to Video Automation Platform on Dropbox
+PLATFORM_HOME = "/Video Automation Platform/"
+
+
 # CORS_ORIGIN_WHITELIST = ['slickshot.github.io']
 CORS_ORIGIN_ALLOW_ALL = True
 
-DROPBOX_TOKEN = os.environ["DROPBOX_TOKEN"]
+
+# Dropbox token
+# WARNING: Keep private -- Do not share!
+DROPBOX_TOKEN = os.getenv("DROPBOX_TOKEN")
+
+
+# Redis connection settings
+REDIS_URI = os.getenv("REDISTOGO_URL")

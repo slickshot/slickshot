@@ -10,16 +10,14 @@ def shell():
     """
     Runs the Django development server.
     """
-    environ = "DROPBOX_TOKEN={}".format(os.environ["DROPBOX_TOKEN"])
-    local(environ + " " + os.path.join(BASE_DIR, "web/slickshot/manage.py") + " shell")
+    local(os.path.join(BASE_DIR, "web/slickshot/manage.py") + " shell")
 
 
 def runserver():
     """
     Runs the Django development server.
     """
-    environ = "DROPBOX_TOKEN={}".format(os.environ["DROPBOX_TOKEN"])
-    local(environ + " " + os.path.join(BASE_DIR, "web/slickshot/manage.py") + " runserver")
+    local(os.path.join(BASE_DIR, "web/slickshot/manage.py") + " runserver")
 
 
 def ngrok():

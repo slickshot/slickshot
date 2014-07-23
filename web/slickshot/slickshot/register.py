@@ -1,34 +1,52 @@
 import os
 
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
+
 from django.conf import settings
 
 import csv
+
+from . import utils
 
 
 def job(job, selections):
     """
     Registers a new job in the platform (generates CSV and updates index).
     """
+    # Get a Dropbox client, so we can sync the job info there for processing by AE
+    dropbox = utils.get_dropbox_client()
 
-    # TODO
-    # Generate CSV and upload directly to Dropbox using the REST API
-    # Be sure to use overwrite mode.
+    # Get a Redis client, for this is where we save our jobs
+    redis = utils.get_redis_client()
 
-    # TODO
-    # Append job to Redis 'jobs' list
-    # Just set it as the last element so it's as quick as possible (O(1))
-
-    # TODO
-    # Generate new index.txt from Redis 'jobs' list
-    # Upload to Dropbox using the REST API
-    # Be sure to use overwrite mode.
+    # Save the job in redis
+    redis.rpush("jobs", job)
 
     # Generate CSV
-    with open(os.path.join(settings.PLATFORM_HOME, "jobs", job, "{}.csv".format(job)), "wb") as fp:
-        writer = csv.writer(fp)
-        for selection in selections:
-            writer.writerow([selection])
+    fp = StringIO.StringIO()
+    writer = csv.writer(fp)
+    for selection in selections:
+        writer.writerow([selection])
 
-    # Update index
-    with open(os.path.join(settings.PLATFORM_HOME, "jobs","index.txt"), "ab") as fp:
-        fp.writelines([job + "\n"])
+    # Upload CSV to Dropbox
+    dropbox.put_file(
+        os.path.join(
+            settings.PLATFORM_HOME, "jobs", job, "{}.csv".format(job)
+        ), fp, overwrite=True)
+    fp.close()
+
+    # Generate index
+    jobs = redis.lrange("jobs", 0, -1)
+    fp = StringIO.StringIO()
+    for job in jobs:
+        fp.write("{}\n".format(job))
+
+    # Upload index to Dropbox
+    dropbox.put_file(
+        os.path.join(
+            settings.PLATFORM_HOME, "jobs", "index.txt"
+        ), fp, overwrite=True)
+    fp.close()
